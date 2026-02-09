@@ -5,5 +5,6 @@
 - ECS Command Center seeks to increase engineering student retention rates by improving the student experience of finding clubs and support on campus. The application will serve as a central hub for the club activities, allowing students with similar backgrounds or interest to more easily discover events on campus. Data on student activities is provided to admin in a timely manner so they could make decisions based on that data to better support students. 
 ** Project Pages (Home Page, Order page, Contact Us, ...)
     - Include a Design page. UML page. Structural/Behavioral/Qualities subpages.
+    - Refer to Issue #6, How can we break apart TitanLink?
 ** Project Front End Tech Stack (html, css, javascript)
 ** Project Backend Tech Stack (ms sql server, mysql, oracledb, postgres)
