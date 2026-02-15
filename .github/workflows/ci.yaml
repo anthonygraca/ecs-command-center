@@ -1,0 +1,75 @@
+name: Titan Software Studio CI
+
+# Trigger on Pull Requests to main and direct pushes to main
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  # ------------------------------------------------------------------
+  # JOB 1: BACKEND (Python/Flask)
+  # ------------------------------------------------------------------
+  backend-check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip" # Caches dependencies for speed
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install flake8 pytest # Ensure dev tools are installed
+
+      - name: Lint with Flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Test with Pytest
+        run: |
+          # Use -v (verbose) and indicate where tests are located
+          # If no tests exist yet, we echo a message to avoid failing the build
+          if [ -d "tests" ]; then pytest -v; else echo "No tests folder found - skipping"; fi
+
+  # ------------------------------------------------------------------
+  # JOB 2: FRONTEND (React/Node)
+  # ------------------------------------------------------------------
+  frontend-check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: ./frontend/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint (ESLint)
+        run: npm run lint
+        # Ensure your package.json has a "lint" script: "eslint ."
+
+      - name: Build (Check for Compile Errors)
+        run: npm run build

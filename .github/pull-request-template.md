@@ -1,8 +1,12 @@
 # 🔗 Related Issue
-Closes #<type issue number here>
+Closes #<TODO: Type issue number here>
 
 # ✍️ Description
+<TODO: Add Description>
+
 # 🎥 Screenshots / Demos
+<TODO: Add some visual of change>
+
 # 🛠 Type of Change
 - [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
 - [ ] ✨ New feature (non-breaking change which adds functionality)
