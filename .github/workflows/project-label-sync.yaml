@@ -13,8 +13,8 @@ jobs:
         env:
           PROJECT_PAT: ${{ secrets.PROJECT_PAT }}
           # Set your variables here
-          ORG_NAME: "your-org-or-username"
-          PROJECT_NUMBER: 1 # Get this from the URL: /projects/1
+          ORG_NAME: "anthonygraca"
+          PROJECT_NUMBER: 2 # Get this from the URL: /projects/1
           TARGET_COLUMN: "In Progress"
           LABEL_NAME: "in-progress"
         with:
