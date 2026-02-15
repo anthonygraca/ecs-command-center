@@ -24,6 +24,3 @@ Closes #<TODO: Type issue number here>
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
-
-# 🗣️ Auto-add reviewers:
-@anthonygraca @jandrosilva @mung04 @rashaboura @zaffinabrianna
