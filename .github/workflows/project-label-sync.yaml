@@ -79,7 +79,7 @@ jobs:
               const statusVal = item.fieldValues.nodes.find(f => f.field && f.field.name === "Status");
               const currentStatus = statusVal ? statusVal.name : "No Status";
 
-              console.log(`Checking if status matches target column: we found $(currentStatus === TARGET_COLUMN)`);          
+              console.log(`Checking if status matches target column: we found current status is ${currentStatus}`);          
 
               // Logic: If Status matches Target, Ensure Label exists
               if (currentStatus === TARGET_COLUMN) {
