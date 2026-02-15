@@ -16,7 +16,7 @@ jobs:
           USER_NAME: "anthonygraca"
           # YOUR PROJECT NUMBER (Check URL: /users/anthonygraca/projects/1)
           PROJECT_NUMBER: 2
-          TARGET_COLUMN: "In Progress"
+          TARGET_COLUMN: "In progress"
           LABEL_NAME: "in-progress"
         with:
           github-token: ${{ secrets.PROJECT_PAT }}
