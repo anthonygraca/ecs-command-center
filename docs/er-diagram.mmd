@@ -1,0 +1,59 @@
+erDiagram
+    USER ||--o{ ORG_MEMBER : "has membership"
+    USER ||--o{ EVENT_ATTENDEE : "rsvps to"
+    USER ||--o{ BUDGET_REQUEST : "reviews/submits"
+    
+    ORGANIZATION ||--o{ ORG_MEMBER : "contains"
+    ORGANIZATION ||--o{ EVENT : "hosts"
+    ORGANIZATION ||--o{ BUDGET_REQUEST : "owns"
+    
+    EVENT ||--o{ EVENT_ATTENDEE : "tracks"
+
+    USER {
+        int id PK
+        string email UK
+        string first_name
+        string last_name
+        string system_role "Student, Admin"
+    }
+
+    ORGANIZATION {
+        int id PK
+        string name
+        string acronym
+        string description
+        string status "Active, Inactive"
+    }
+
+    ORG_MEMBER {
+        int id PK
+        int user_id FK
+        int org_id FK
+        string club_role "President, Treasurer, Member"
+    }
+
+    EVENT {
+        int id PK
+        int org_id FK
+        string title
+        datetime start_time
+        datetime end_time
+        string location
+        string approval_status "Pending, Approved, Rejected"
+    }
+
+    EVENT_ATTENDEE {
+        int id PK
+        int event_id FK
+        int user_id FK
+        string rsvp_status "Going, Waitlisted, Attended"
+    }
+
+    BUDGET_REQUEST {
+        int id PK
+        int org_id FK
+        int submitted_by_user_id FK
+        float amount
+        string purpose
+        string status "Pending, Approved, Denied"
+    }
