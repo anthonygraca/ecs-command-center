@@ -1,3 +1,4 @@
 # Add pip packages here
+Flask
 flake8
 pytest
