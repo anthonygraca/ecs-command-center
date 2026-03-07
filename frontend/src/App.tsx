@@ -3,13 +3,22 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import HealthCheck from './components/HealthCheck'
+import UserTest from './components/UserTest'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <HealthCheck />
+      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
+        <HealthCheck />
+      </div>
+
+      <div style={{ padding: '20px' }}>
+        <UserTest />
+      </div>
+
+      <hr />
 
       <div>
         <a href="https://vite.dev" target="_blank">

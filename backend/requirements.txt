@@ -1,4 +1,7 @@
 # Add pip packages here
 Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Cors
 flake8
 pytest
