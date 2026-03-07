@@ -1,0 +1,124 @@
+header
+{
+	font-family: "Times New Roman", Times, serif;
+	color: #000000;
+}
+
+header
+{
+  font-family: "Times New Roman", Times, serif;
+  color: #00244E;
+}
+
+/*Bar containg header and meets with nav*/
+.bluebar
+{
+	text-align: center;
+	background-color: #fffff;
+	overflow: hidden;
+}
+	
+/*Logo*/
+.logo
+{
+	float: left;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+
+/*Top Navigation*/
+.topnav
+{
+  text-align: center;
+  background-color: #00244E;
+  overflow: hidden;
+  font-family: "Times New Roman", Times, serif;
+  padding: 10px;
+  
+}
+
+.topnav a
+{
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover
+{
+  color: #70a2ff;
+}
+
+.centerimg
+{
+  display: block;
+  margin: auto;
+  width: 50%;
+  padding-bottom: 20px;
+}
+
+.textcenter
+{
+	text-align: center;
+}
+
+
+main
+{
+	background-color: #fffff;
+	overflow: hidden;
+	border-top: 2px solid #00244E;
+	border-left: 1px solid #00244E;
+	border-right: 1px solid #00244E;
+}
+
+h1 
+{
+	font-family: "Times New Roman", Times, serif;
+	color: #00244E;
+	padding-right: 120px;
+	padding-top: 20px;
+}
+	
+h2
+{
+	text-align: center;
+	color: #00244E;
+	font-family: "Times New Roman", Times, serif;
+}
+
+p
+{
+	font-family:"Times New Roman", Times, serif;
+	color: #00244E;
+	font-size: 17px;
+}
+
+p a
+{
+	color:#2e63c7;
+}
+
+p a:hover
+{
+	color:#6298fc;
+}
+
+footer 
+{ 
+	background-color: #00244E;
+	color: #ffffff;
+   	font-size: 1em;
+    font-style: italic;
+	padding: 1em;
+	text-align: center;
+	border-top: 2px solid #00244E;
+	border-bottom: 2px solid #00244E;
+	border-left: 1px solid #00244E;
+	border-right: 1px solid #00244E;
+}
+  
