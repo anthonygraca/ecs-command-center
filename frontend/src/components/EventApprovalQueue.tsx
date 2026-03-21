@@ -74,22 +74,19 @@ const EventApprovalQueue = () => {
           style={{
             padding: "6px 12px",
             borderRadius: "4px",
-            border: "1px solid #444",
-            backgroundColor: "#ffffff",
-            color: "inherit",
           }}
         >
-          <option value="" style={{ backgroundColor: "#2a2a2a", color: "#fff" }}>All Events</option>
-          <option value="Pending" style={{ backgroundColor: "#2a2a2a", color: "#fff" }}>Pending</option>
-          <option value="Approved" style={{ backgroundColor: "#2a2a2a", color: "#fff" }}>Approved</option>
-          <option value="Rejected" style={{ backgroundColor: "#2a2a2a", color: "#fff" }}>Rejected</option>
+          <option value="">All Events</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
         </select>
       </div>
 
       {loading ? (
         <p>Loading events...</p>
       ) : events.length === 0 ? (
-        <p style={{ color: "#aaa" }}>No events found.</p>
+        <p style={{ color: "var(--color-text-secondary)" }}>No events found.</p>
       ) : (
         <>
           {events.map((event) => (
@@ -103,7 +100,7 @@ const EventApprovalQueue = () => {
             />
           ))}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "12px" }}>
-            <span style={{ color: "#aaa", fontSize: "0.9em" }}>
+            <span style={{ color: "var(--color-text-secondary)", fontSize: "0.9em" }}>
               Showing {events.length} of {total}
             </span>
           </div>

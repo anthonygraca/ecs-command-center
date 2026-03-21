@@ -6,7 +6,7 @@ const AdminDashboard = () => {
     <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto" }}>
       <Link to="/" style={{ fontSize: "0.9em" }}>&larr; Back to Home</Link>
       <h1>Administrative Oversight</h1>
-      <p style={{ color: "#aaa" }}>Review and manage pending event proposals</p>
+      <p style={{ color: "var(--color-text-secondary)" }}>Review and manage pending event proposals</p>
       <EventApprovalQueue />
     </div>
   );
