@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import OrgCard from "../components/OrgCard";
 
 interface Org {
@@ -33,7 +34,7 @@ const OrgsPage = () => {
         return (
             <div style={{ padding: "20px" }}>
                 {[1, 2, 3].map((n) => (
-                    <div key={n} style={{ background: "#e0e0e0", height: "100px", marginBottom: "10px", borderRadius: "8px" }} />
+                    <div key={n} style={{ background: "var(--color-skeleton)", height: "100px", marginBottom: "10px", borderRadius: "8px" }} />
                 ))}
             </div>
         );
@@ -41,13 +42,14 @@ const OrgsPage = () => {
 
     return (
         <div style={{ padding: "20px" }}>
+            <Link to="/" style={{ fontSize: "0.9em" }}>&larr; Back to Home</Link>
             <h1>Organizations</h1>
             <input
                 type="text"
                 placeholder="Search by name or acronym..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                style={{ marginBottom: "20px", padding: "8px", width: "100%" }}
+                style={{ marginBottom: "20px", padding: "8px", width: "100%", borderRadius: "4px", boxSizing: "border-box" }}
             />
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
                 {filtered.map((org) => (

@@ -89,7 +89,7 @@ const UserTest: React.FC = () => {
 					type="submit"
 					style={{
 						padding: "10px",
-						backgroundColor: "#007bff",
+						backgroundColor: "var(--color-primary)",
 						color: "white",
 						border: "none",
 						borderRadius: "4px",
@@ -106,7 +106,7 @@ const UserTest: React.FC = () => {
 					<li
 						key={user.id}
 						style={{
-							backgroundColor: "#f4f4f4",
+							backgroundColor: "var(--color-bg-surface)",
 							margin: "5px 0",
 							padding: "10px",
 							borderRadius: "4px",
