@@ -4,8 +4,22 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+
+  /* Theme colors — dark mode defaults */
+  --color-bg: #242424;
+  --color-bg-elevated: #1a1a1a;
+  --color-bg-surface: #2a2a2a;
+  --color-text: rgba(255, 255, 255, 0.87);
+  --color-text-secondary: #aaa;
+  --color-border: #444;
+  --color-border-subtle: #333;
+  --color-primary: #646cff;
+  --color-primary-hover: #535bf2;
+  --color-skeleton: #333;
+  --color-input-bg: #2a2a2a;
+
+  color: var(--color-text);
+  background-color: var(--color-bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,11 +29,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-primary);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-primary-hover);
 }
 
 body {
@@ -42,27 +56,37 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-primary);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+input, select, textarea {
+  color: var(--color-text);
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-border);
+}
+
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+    --color-bg: #ffffff;
+    --color-bg-elevated: #ffffff;
+    --color-bg-surface: #f5f5f5;
+    --color-text: #213547;
+    --color-text-secondary: #666;
+    --color-border: #ddd;
+    --color-border-subtle: #e0e0e0;
+    --color-primary: #646cff;
+    --color-primary-hover: #747bff;
+    --color-skeleton: #e0e0e0;
+    --color-input-bg: #ffffff;
   }
 }
