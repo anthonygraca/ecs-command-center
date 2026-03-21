@@ -16,3 +16,6 @@
 ## Building and running the frontend
 - npm install
 - npm run dev
+
+# Current Routes 
+/orgs, /orgs/:id, and /admin 

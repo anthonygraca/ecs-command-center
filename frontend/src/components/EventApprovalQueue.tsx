@@ -75,14 +75,14 @@ const EventApprovalQueue = () => {
             padding: "6px 12px",
             borderRadius: "4px",
             border: "1px solid #444",
-            backgroundColor: "#2a2a2a",
+            backgroundColor: "#ffffff",
             color: "inherit",
           }}
         >
-          <option value="">All Events</option>
-          <option value="Pending">Pending</option>
-          <option value="Approved">Approved</option>
-          <option value="Rejected">Rejected</option>
+          <option value="" style={{ backgroundColor: "#2a2a2a", color: "#fff" }}>All Events</option>
+          <option value="Pending" style={{ backgroundColor: "#2a2a2a", color: "#fff" }}>Pending</option>
+          <option value="Approved" style={{ backgroundColor: "#2a2a2a", color: "#fff" }}>Approved</option>
+          <option value="Rejected" style={{ backgroundColor: "#2a2a2a", color: "#fff" }}>Rejected</option>
         </select>
       </div>
 

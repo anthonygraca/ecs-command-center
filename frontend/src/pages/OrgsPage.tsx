@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import OrgCard from "../components/OrgCard";
 
 interface Org {
@@ -41,6 +42,7 @@ const OrgsPage = () => {
 
     return (
         <div style={{ padding: "20px" }}>
+            <Link to="/" style={{ fontSize: "0.9em" }}>&larr; Back to Home</Link>
             <h1>Organizations</h1>
             <input
                 type="text"
