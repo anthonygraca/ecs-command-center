@@ -29,7 +29,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
           style={{
             padding: "6px 12px",
             fontWeight: p === currentPage ? "bold" : "normal",
-            backgroundColor: p === currentPage ? "#646cff" : undefined,
+            backgroundColor: p === currentPage ? "var(--color-primary)" : undefined,
             color: p === currentPage ? "white" : undefined,
           }}
         >

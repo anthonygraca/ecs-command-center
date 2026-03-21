@@ -24,11 +24,12 @@ const RejectModal = ({ eventTitle, onConfirm, onCancel }: RejectModalProps) => {
     >
       <div
         style={{
-          backgroundColor: "#1a1a1a",
+          backgroundColor: "var(--color-bg-elevated)",
           borderRadius: "8px",
           padding: "24px",
           maxWidth: "480px",
           width: "90%",
+          border: "1px solid var(--color-border)",
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -45,9 +46,6 @@ const RejectModal = ({ eventTitle, onConfirm, onCancel }: RejectModalProps) => {
             width: "100%",
             padding: "8px",
             borderRadius: "4px",
-            border: "1px solid #444",
-            backgroundColor: "#2a2a2a",
-            color: "inherit",
             fontFamily: "inherit",
             resize: "vertical",
             boxSizing: "border-box",

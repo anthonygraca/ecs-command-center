@@ -23,7 +23,7 @@ const EventCard = ({ event, isExpanded, onToggle, onApprove, onReject }: EventCa
   return (
     <div
       style={{
-        border: "1px solid #444",
+        border: "1px solid var(--color-border)",
         borderRadius: "8px",
         marginBottom: "8px",
         overflow: "hidden",
@@ -55,7 +55,7 @@ const EventCard = ({ event, isExpanded, onToggle, onApprove, onReject }: EventCa
             {event.approval_status}
           </span>
           {event.org_name && (
-            <span style={{ color: "#aaa", fontSize: "0.9em" }}>{event.org_name}</span>
+            <span style={{ color: "var(--color-text-secondary)", fontSize: "0.9em" }}>{event.org_name}</span>
           )}
         </div>
         <span style={{ fontSize: "1.2em" }}>{isExpanded ? "\u25B2" : "\u25BC"}</span>
@@ -63,11 +63,11 @@ const EventCard = ({ event, isExpanded, onToggle, onApprove, onReject }: EventCa
 
       {/* Expanded details */}
       {isExpanded && (
-        <div style={{ padding: "0 16px 16px", borderTop: "1px solid #333" }}>
+        <div style={{ padding: "0 16px 16px", borderTop: "1px solid var(--color-border-subtle)" }}>
           {event.description && (
             <p style={{ marginTop: "12px" }}>{event.description}</p>
           )}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", fontSize: "0.9em", color: "#2a2a2a", marginTop: "8px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", fontSize: "0.9em", color: "var(--color-text-secondary)", marginTop: "8px" }}>
             <div>
               <strong>Start:</strong> {formatDateTime(event.start_time)}
             </div>
