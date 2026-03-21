@@ -67,7 +67,7 @@ const EventCard = ({ event, isExpanded, onToggle, onApprove, onReject }: EventCa
           {event.description && (
             <p style={{ marginTop: "12px" }}>{event.description}</p>
           )}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", fontSize: "0.9em", color: "#ccc", marginTop: "8px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", fontSize: "0.9em", color: "#2a2a2a", marginTop: "8px" }}>
             <div>
               <strong>Start:</strong> {formatDateTime(event.start_time)}
             </div>
