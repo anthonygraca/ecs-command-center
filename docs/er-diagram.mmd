@@ -2,6 +2,7 @@ erDiagram
     USER ||--o{ ORG_MEMBER : "has membership"
     USER ||--o{ EVENT_ATTENDEE : "rsvps to"
     USER ||--o{ BUDGET_REQUEST : "reviews/submits"
+    USER ||--o{ EVENT : "submits"
     
     ORGANIZATION ||--o{ ORG_MEMBER : "contains"
     ORGANIZATION ||--o{ EVENT : "hosts"
@@ -36,10 +37,13 @@ erDiagram
         int id PK
         int org_id FK
         string title
+        text description
         datetime start_time
         datetime end_time
         string location
         string approval_status "Pending, Approved, Rejected"
+        int submitted_by_user_id FK
+        text rejection_reason
     }
 
     EVENT_ATTENDEE {
