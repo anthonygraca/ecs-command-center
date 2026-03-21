@@ -12,6 +12,7 @@ class User(db.Model):
     memberships = db.relationship('OrgMember', backref='user', lazy=True)
     rsvps = db.relationship('EventAttendee', backref='user', lazy=True)
     budget_submissions = db.relationship('BudgetRequest', backref='submitter', lazy=True)
+    submitted_events = db.relationship('Event', backref='submitter_user', lazy=True)
 
 class Organization(db.Model):
     __tablename__ = 'organizations'
@@ -37,10 +38,13 @@ class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     org_id = db.Column(db.Integer, db.ForeignKey('organizations.id'), nullable=False)
     title = db.Column(db.String(128), nullable=False)
+    description = db.Column(db.Text)
     start_time = db.Column(db.DateTime, default=datetime.utcnow)
     end_time = db.Column(db.DateTime)
     location = db.Column(db.String(256))
     approval_status = db.Column(db.String(20), default='Pending')
+    submitted_by_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    rejection_reason = db.Column(db.Text)
 
 class EventAttendee(db.Model):
     __tablename__ = 'event_attendees'
