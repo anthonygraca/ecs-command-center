@@ -1,0 +1,71 @@
+classDiagram
+    direction LR
+
+    class User {
+        +int id
+        +String~120~ email
+        +String~64~ first_name
+        +String~64~ last_name
+        +String~20~ system_role
+        +getUsers() List~User~
+        +addUser(email, first_name, last_name) User
+    }
+
+    class Organization {
+        +int id
+        +String~128~ name
+        +String~16~ acronym
+        +Text description
+        +String~20~ status
+        +getOrganizations() List~Organization~
+    }
+
+    class OrgMember {
+        +int id
+        +int user_id
+        +int org_id
+        +String~64~ club_role
+    }
+
+    class Event {
+        +int id
+        +int org_id
+        +String~128~ title
+        +Text description
+        +DateTime start_time
+        +DateTime end_time
+        +String~256~ location
+        +String~20~ approval_status
+        +int submitted_by_user_id
+        +Text rejection_reason
+        +getEvents(status, page, per_page) EventsResponse
+        +approveEvent(event_id) Event
+        +rejectEvent(event_id, rejection_reason) Event
+    }
+
+    class EventAttendee {
+        +int id
+        +int event_id
+        +int user_id
+        +String~20~ rsvp_status
+    }
+
+    class BudgetRequest {
+        +int id
+        +int org_id
+        +int submitted_by_user_id
+        +Float amount
+        +String~256~ purpose
+        +String~20~ status
+    }
+
+    User "1" --> "*" OrgMember : memberships
+    User "1" --> "*" EventAttendee : rsvps
+    User "1" --> "*" BudgetRequest : budget_submissions
+    User "1" --> "*" Event : submitted_events
+
+    Organization "1" --> "*" OrgMember : members
+    Organization "1" --> "*" Event : events
+    Organization "1" --> "*" BudgetRequest : budgets
+
+    Event "1" --> "*" EventAttendee : attendees
