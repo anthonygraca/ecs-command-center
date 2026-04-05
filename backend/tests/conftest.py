@@ -1,6 +1,6 @@
 import pytest
 from app import create_app, db
-from app.models import User, Organization, Event
+from app.models import User, Organization, Event, BudgetRequest
 
 
 @pytest.fixture
@@ -37,6 +37,29 @@ def seed_user(app):
         db.session.add(user)
         db.session.commit()
         return user.id
+
+
+@pytest.fixture
+def seed_org_2(app):
+    with app.app_context():
+        org = Organization(name="Art & Design Society", acronym="ADS", status="Active")
+        db.session.add(org)
+        db.session.commit()
+        return org.id
+
+
+@pytest.fixture
+def seed_budget(app, seed_org, seed_user):
+    with app.app_context():
+        budget = BudgetRequest(
+            org_id=seed_org,
+            submitted_by_user_id=seed_user,
+            amount=3500.00,
+            purpose="Annual Robotics Competition Entry Fees",
+        )
+        db.session.add(budget)
+        db.session.commit()
+        return budget.id
 
 
 @pytest.fixture

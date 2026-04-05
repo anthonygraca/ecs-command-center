@@ -3,7 +3,7 @@
 # Setup and Run Instructions
 ## Setting up the database and running the backend
 - cd backend/
-- python -m venv evne
+- python -m venv venv
 - source venv/bin/activate
 - pip install -r requirements.txt
 
