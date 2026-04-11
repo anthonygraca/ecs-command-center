@@ -61,3 +61,4 @@ class BudgetRequest(db.Model):
     amount = db.Column(db.Float, nullable=False)
     purpose = db.Column(db.String(256))
     status = db.Column(db.String(20), default='Pending')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)

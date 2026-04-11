@@ -25,9 +25,11 @@ def create_app():
     from app.routes.test import test_bp
     from app.routes.orgs import organizations
     from app.routes.events import events_bp
+    from app.routes.budgets import budgets_bp
     app.register_blueprint(health_bp)
     app.register_blueprint(test_bp)
     app.register_blueprint(organizations)
     app.register_blueprint(events_bp)
+    app.register_blueprint(budgets_bp)
 
     return app
