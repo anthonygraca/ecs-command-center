@@ -1,0 +1,75 @@
+@startuml activity-admin
+title Admin (Assistant Dean) Activity Flow
+
+skinparam dpi 300
+
+start
+
+:Log in to ECS Command Center;
+:System verifies User.system_role = "admin";
+
+repeat
+    :View admin dashboard;
+
+    switch (What does the admin want to review?)
+    case (Pending budget requests)
+        :Open consolidated Budget Requests queue;
+        :System lists all BudgetRequest
+        records with status = "pending"
+        across all organizations;
+        if (Any pending requests?) then (yes)
+            :Select a budget request;
+            :Review org, amount, purpose,
+            submitter;
+            switch (Decision?)
+            case (Approve)
+                :Set BudgetRequest.status = "approved";
+                :Notify submitter;
+            case (Deny)
+                :Set BudgetRequest.status = "denied";
+                :Notify submitter;
+            case (Defer)
+                :Leave as pending;
+            endswitch
+        else (no)
+            :Queue empty;
+        endif
+
+    case (Pending events)
+        :Open Event Approval queue;
+        :System lists all Event records
+        with approval_status = "pending";
+        if (Any pending events?) then (yes)
+            :Select an event;
+            :Review title, description,
+            time, location, submitter;
+            switch (Decision?)
+            case (Approve)
+                :Call approveEvent(event_id);
+                :approval_status = "approved";
+                :Event becomes visible
+                to student body;
+            case (Reject)
+                :Enter rejection_reason;
+                :Call rejectEvent(event_id,
+                rejection_reason);
+                :approval_status = "rejected";
+                :Notify submitter;
+            case (Defer)
+                :Leave as pending;
+            endswitch
+        else (no)
+            :Queue empty;
+        endif
+
+    case (Log out)
+        :End session;
+        stop
+    endswitch
+
+repeat while (More review work?) is (yes)
+-> no;
+
+stop
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml activity-student
+title Student Activity Flow
+
+skinparam dpi 300
+
+start
+
+:Log in to ECS Command Center;
+
+repeat
+    :View landing page;
+
+    switch (What does the student want to do?)
+    case (Browse organizations)
+        :Navigate to Organizations directory;
+        :View list of active ECS student organizations;
+        if (Found an organization of interest?) then (yes)
+            :Open organization details;
+            if (Want to join?) then (yes)
+                :Submit request to join;
+                :Wait for club officer review;
+            else (no)
+                :Return to directory;
+            endif
+        else (no)
+            :Return to landing page;
+        endif
+
+    case (Browse upcoming events)
+        :Navigate to Events page;
+        :View list of approved upcoming events;
+        if (Interested in an event?) then (yes)
+            :Open event details;
+            if (Want to attend?) then (yes)
+                :Click RSVP;
+                :System records EventAttendee
+                with rsvp_status = "yes";
+                :Confirmation shown;
+                if (Add to calendar?) then (yes)
+                    :Download/export calendar entry;
+                else (no)
+                endif
+            else (no)
+                :Close event details;
+            endif
+        else (no)
+            :Return to landing page;
+        endif
+
+    case (Log out)
+        :End session;
+        stop
+    endswitch
+
+repeat while (Continue browsing?) is (yes)
+-> no;
+
+stop
+
+@enduml
