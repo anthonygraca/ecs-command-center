@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
+from datetime import datetime
 from app import db
-from app.models import Event, Organization, User
+from app.models import Event, Organization, User, EventAttendee
 
 events_bp = Blueprint("events", __name__)
 
@@ -72,3 +73,63 @@ def reject_event(event_id):
     db.session.commit()
 
     return jsonify({"message": "Event rejected", "id": event.id, "approval_status": event.approval_status})
+
+
+@events_bp.get("/api/events/upcoming")
+def get_upcoming_events():
+    # only return events that are approved and haven't started yet
+    now = datetime.utcnow()
+    upcoming = Event.query.filter(
+        Event.approval_status == "Approved",
+        Event.start_time > now
+    ).order_by(Event.start_time.asc()).all()
+
+    return jsonify([
+        {
+            "id": e.id,
+            "title": e.title,
+            "description": e.description,
+            "start_time": e.start_time.isoformat() if e.start_time else None,
+            "location": e.location,
+            "attendee_count": EventAttendee.query.filter_by(event_id=e.id).count(),
+        }
+        for e in upcoming
+    ])
+
+
+@events_bp.post("/api/events/<int:event_id>/rsvp")
+def rsvp_to_event(event_id):
+    # temporary: hardcoded to James Wilson until auth is built
+    current_user_id = 2
+
+    event = Event.query.get(event_id)
+    if not event:
+        return jsonify({"error": "Event not found"}), 404
+
+    # check if this user already RSVPed to prevent RSVPing again
+    existing = EventAttendee.query.filter_by(
+        event_id=event_id,
+        user_id=current_user_id
+    ).first()
+
+    if existing:
+        return jsonify({"error": "Already RSVPed to this event"}), 409
+
+    new_rsvp = EventAttendee(event_id=event_id, user_id=current_user_id)
+    db.session.add(new_rsvp)
+    db.session.commit()
+
+    return jsonify({"message": "RSVP confirmed"}), 200
+
+
+@events_bp.get("/api/events/<int:event_id>/rsvp/status")
+def get_rsvp_status(event_id):
+    # temporary: hardcoded to James Wilson until auth is built
+    current_user_id = 2
+
+    existing = EventAttendee.query.filter_by(
+        event_id=event_id,
+        user_id=current_user_id
+    ).first()
+
+    return jsonify({"attending": existing is not None})
