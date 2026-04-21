@@ -59,6 +59,8 @@ class BudgetRequest(db.Model):
     org_id = db.Column(db.Integer, db.ForeignKey('organizations.id'), nullable=False)
     submitted_by_user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     amount = db.Column(db.Float, nullable=False)
+    title = db.Column(db.String(128))
+    category = db.Column(db.String(32))
     purpose = db.Column(db.String(256))
     status = db.Column(db.String(20), default='Pending')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
