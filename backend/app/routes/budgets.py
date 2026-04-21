@@ -65,6 +65,56 @@ def get_budgets():
     })
 
 
+@budgets_bp.post("/api/budgets/")
+def create_budget():
+    data = request.get_json(silent=True) or {}
+
+    required = ["org_id", "submitted_by_user_id", "amount", "title", "category", "purpose"]
+    missing = [f for f in required if data.get(f) in (None, "")]
+    if missing:
+        return jsonify({"error": f"Missing required fields: {', '.join(missing)}"}), 400
+
+    try:
+        amount = float(data["amount"])
+    except (TypeError, ValueError):
+        return jsonify({"error": "amount must be a number"}), 400
+    if amount <= 0:
+        return jsonify({"error": "amount must be greater than 0"}), 400
+
+    org = Organization.query.get(data["org_id"])
+    if not org:
+        return jsonify({"error": "Organization not found"}), 400
+
+    submitter = User.query.get(data["submitted_by_user_id"])
+    if not submitter:
+        return jsonify({"error": "User not found"}), 400
+
+    budget = BudgetRequest(
+        org_id=org.id,
+        submitted_by_user_id=submitter.id,
+        amount=amount,
+        title=data["title"],
+        category=data["category"],
+        purpose=data["purpose"],
+    )
+    db.session.add(budget)
+    db.session.commit()
+
+    return jsonify({
+        "id": budget.id,
+        "org_id": budget.org_id,
+        "org_name": org.name,
+        "submitted_by_user_id": budget.submitted_by_user_id,
+        "submitter_name": f"{submitter.first_name} {submitter.last_name}",
+        "amount": budget.amount,
+        "title": budget.title,
+        "category": budget.category,
+        "purpose": budget.purpose,
+        "status": budget.status,
+        "created_at": budget.created_at.isoformat() if budget.created_at else None,
+    }), 201
+
+
 @budgets_bp.get("/api/budgets/organizations")
 def get_budget_organizations():
     org_ids = db.session.query(
