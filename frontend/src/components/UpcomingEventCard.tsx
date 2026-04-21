@@ -20,12 +20,11 @@ function formatDateTime(iso: string | null): string {
     });
 }
 
-const UpcomingEventCard = ({ id, title, description, start_time, location, attendee_count }: UpcomingEventCardProps) => {
+const UpcomingEventCard = ({ id, title, description, start_time, location: _location, attendee_count }: UpcomingEventCardProps) => {
     const [attending, setAttending] = useState(false);
     const [toast, setToast] = useState<{ message: string; success: boolean } | null>(null);
     const [loading, setLoading] = useState(false);
 
-    // check on load if the user already RSVPed so the button reflects the correct state
     useEffect(() => {
         fetch(`/api/events/${id}/rsvp/status`)
             .then((res) => res.json())
@@ -57,7 +56,6 @@ const UpcomingEventCard = ({ id, title, description, start_time, location, atten
 
     return (
         <div style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden" }}>
-            {/* event image placeholder */}
             <div style={{ background: "var(--color-skeleton)", height: "150px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.85em", color: "var(--color-text-secondary)" }}>
                 Event Image
             </div>
