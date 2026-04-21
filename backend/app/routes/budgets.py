@@ -37,8 +37,8 @@ def get_budgets():
 
     budgets = []
     for b in pagination.items:
-        org = Organization.query.get(b.org_id)
-        submitter = User.query.get(b.submitted_by_user_id)
+        org = db.session.get(Organization, b.org_id)
+        submitter = db.session.get(User, b.submitted_by_user_id)
         budgets.append({
             "id": b.id,
             "org_id": b.org_id,
@@ -81,11 +81,11 @@ def create_budget():
     if amount <= 0:
         return jsonify({"error": "amount must be greater than 0"}), 400
 
-    org = Organization.query.get(data["org_id"])
+    org = db.session.get(Organization, data["org_id"])
     if not org:
         return jsonify({"error": "Organization not found"}), 400
 
-    submitter = User.query.get(data["submitted_by_user_id"])
+    submitter = db.session.get(User, data["submitted_by_user_id"])
     if not submitter:
         return jsonify({"error": "User not found"}), 400
 
@@ -129,7 +129,7 @@ def get_budget_organizations():
 
 @budgets_bp.patch("/api/budgets/<int:budget_id>/approve")
 def approve_budget(budget_id):
-    budget = BudgetRequest.query.get(budget_id)
+    budget = db.session.get(BudgetRequest, budget_id)
     if not budget:
         return jsonify({"error": "Budget request not found"}), 404
 
@@ -145,7 +145,7 @@ def approve_budget(budget_id):
 
 @budgets_bp.patch("/api/budgets/<int:budget_id>/deny")
 def deny_budget(budget_id):
-    budget = BudgetRequest.query.get(budget_id)
+    budget = db.session.get(BudgetRequest, budget_id)
     if not budget:
         return jsonify({"error": "Budget request not found"}), 404
 

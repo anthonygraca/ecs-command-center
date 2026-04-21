@@ -184,7 +184,7 @@ def test_create_budget_success(client, app, seed_org, seed_user):
     assert data["created_at"] is not None
 
     with app.app_context():
-        assert BudgetRequest.query.get(data["id"]) is not None
+        assert db.session.get(BudgetRequest, data["id"]) is not None
 
 
 def test_create_budget_rejects_negative_amount(client, seed_org, seed_user):
