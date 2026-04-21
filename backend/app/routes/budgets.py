@@ -49,6 +49,8 @@ def get_budgets():
                 if submitter else None
             ),
             "amount": b.amount,
+            "title": b.title,
+            "category": b.category,
             "purpose": b.purpose,
             "status": b.status,
             "created_at": b.created_at.isoformat() if b.created_at else None,
