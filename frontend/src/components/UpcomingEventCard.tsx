@@ -20,7 +20,8 @@ function formatDateTime(iso: string | null): string {
     });
 }
 
-const UpcomingEventCard = ({ id, title, description, start_time, location: _location, attendee_count }: UpcomingEventCardProps) => {
+const UpcomingEventCard = (props: UpcomingEventCardProps) => {
+    const { id, title, description, start_time, attendee_count } = props;
     const [attending, setAttending] = useState(false);
     const [toast, setToast] = useState<{ message: string; success: boolean } | null>(null);
     const [loading, setLoading] = useState(false);
