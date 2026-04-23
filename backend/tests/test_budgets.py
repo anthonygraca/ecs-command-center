@@ -156,6 +156,74 @@ def test_get_budgets_filter_by_org(client, app, seed_org, seed_org_2, seed_user)
     assert data["budgets"][0]["purpose"] == "CSC item"
 
 
+def _valid_payload(seed_org, seed_user, **overrides):
+    payload = {
+        "org_id": seed_org,
+        "submitted_by_user_id": seed_user,
+        "amount": 500.00,
+        "title": "Workshop Supplies",
+        "category": "Equipment",
+        "purpose": "Arduino kits for the spring workshop series",
+    }
+    payload.update(overrides)
+    return payload
+
+
+def test_create_budget_success(client, app, seed_org, seed_user):
+    resp = client.post("/api/budgets/", json=_valid_payload(seed_org, seed_user))
+    assert resp.status_code == 201
+    data = resp.get_json()
+    assert data["id"] is not None
+    assert data["amount"] == 500.00
+    assert data["title"] == "Workshop Supplies"
+    assert data["category"] == "Equipment"
+    assert data["purpose"] == "Arduino kits for the spring workshop series"
+    assert data["status"] == "Pending"
+    assert data["org_name"] == "Computer Science Club"
+    assert data["submitter_name"] == "Sarah Chen"
+    assert data["created_at"] is not None
+
+    with app.app_context():
+        assert db.session.get(BudgetRequest, data["id"]) is not None
+
+
+def test_create_budget_rejects_negative_amount(client, seed_org, seed_user):
+    resp = client.post("/api/budgets/", json=_valid_payload(seed_org, seed_user, amount=-5))
+    assert resp.status_code == 400
+    assert "amount" in resp.get_json()["error"].lower()
+
+
+def test_create_budget_rejects_zero_amount(client, seed_org, seed_user):
+    resp = client.post("/api/budgets/", json=_valid_payload(seed_org, seed_user, amount=0))
+    assert resp.status_code == 400
+    assert "amount" in resp.get_json()["error"].lower()
+
+
+def test_create_budget_missing_fields(client, seed_org, seed_user):
+    payload = _valid_payload(seed_org, seed_user)
+    del payload["title"]
+    resp = client.post("/api/budgets/", json=payload)
+    assert resp.status_code == 400
+    assert "title" in resp.get_json()["error"].lower()
+
+
+def test_create_budget_rejects_empty_string_fields(client, seed_org, seed_user):
+    resp = client.post("/api/budgets/", json=_valid_payload(seed_org, seed_user, purpose=""))
+    assert resp.status_code == 400
+
+
+def test_create_budget_unknown_org(client, seed_user):
+    resp = client.post("/api/budgets/", json=_valid_payload(9999, seed_user))
+    assert resp.status_code == 400
+    assert "organization" in resp.get_json()["error"].lower()
+
+
+def test_create_budget_unknown_user(client, seed_org):
+    resp = client.post("/api/budgets/", json=_valid_payload(seed_org, 9999))
+    assert resp.status_code == 400
+    assert "user" in resp.get_json()["error"].lower()
+
+
 def test_get_budget_organizations(client, app, seed_org, seed_org_2, seed_user):
     with app.app_context():
         db.session.add(BudgetRequest(

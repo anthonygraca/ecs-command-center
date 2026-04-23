@@ -22,8 +22,8 @@ def get_events():
 
     events = []
     for e in pagination.items:
-        org = Organization.query.get(e.org_id)
-        submitter = User.query.get(e.submitted_by_user_id) if e.submitted_by_user_id else None
+        org = db.session.get(Organization, e.org_id)
+        submitter = db.session.get(User, e.submitted_by_user_id) if e.submitted_by_user_id else None
         events.append({
             "id": e.id,
             "org_id": e.org_id,
@@ -50,7 +50,7 @@ def get_events():
 
 @events_bp.patch("/api/events/<int:event_id>/approve")
 def approve_event(event_id):
-    event = Event.query.get(event_id)
+    event = db.session.get(Event, event_id)
     if not event:
         return jsonify({"error": "Event not found"}), 404
 
@@ -63,7 +63,7 @@ def approve_event(event_id):
 
 @events_bp.patch("/api/events/<int:event_id>/reject")
 def reject_event(event_id):
-    event = Event.query.get(event_id)
+    event = db.session.get(Event, event_id)
     if not event:
         return jsonify({"error": "Event not found"}), 404
 

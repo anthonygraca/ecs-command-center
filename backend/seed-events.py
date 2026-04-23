@@ -1,7 +1,7 @@
 """Seed the database with sample orgs, users, and events."""
 from app import create_app, db
 from app.models import User, Organization, Event
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 app = create_app()
 
@@ -29,7 +29,7 @@ with app.app_context():
     db.session.commit()
 
     # Events — mix of Pending, Approved, and Rejected
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     events = [
         Event(
             org_id=orgs[0].id, title='Spring Tech Showcase 2025',
