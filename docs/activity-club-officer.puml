@@ -1,0 +1,69 @@
+@startuml activity-club-officer
+title Club Officer (President / Treasurer) Activity Flow
+
+skinparam dpi 300
+
+start
+
+:Log in to ECS Command Center;
+:System verifies OrgMember.club_role
+is "President" or "Treasurer";
+
+repeat
+    :View officer dashboard for the organization;
+
+    switch (What does the officer want to do?)
+    case (Submit a budget / funding request)
+        note right
+            Typically performed by
+            Treasurer or President
+        end note
+        :Open "New Budget Request" form;
+        :Enter amount;
+        :Enter purpose / justification;
+        if (Form valid?) then (yes)
+            :Submit BudgetRequest
+            (status = "pending");
+            :Request enters admin queue;
+            :Await admin decision;
+        else (no)
+            :Show validation errors;
+            :Correct and resubmit;
+        endif
+
+    case (Propose a new event)
+        note right
+            Typically performed by
+            President
+        end note
+        :Open "New Event" form;
+        :Enter title, description,
+        start_time, end_time, location;
+        if (Form valid?) then (yes)
+            :Submit Event
+            (approval_status = "pending",
+            submitted_by_user_id = self);
+            :Event enters admin approval queue;
+            :Await admin decision;
+            if (Approved?) then (yes)
+                :Event becomes visible to students;
+            else (rejected)
+                :Read rejection_reason;
+                :Revise and resubmit if desired;
+            endif
+        else (no)
+            :Show validation errors;
+            :Correct and resubmit;
+        endif
+
+    case (Log out)
+        :End session;
+        stop
+    endswitch
+
+repeat while (Continue working?) is (yes)
+-> no;
+
+stop
+
+@enduml

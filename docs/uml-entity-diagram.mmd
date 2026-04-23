@@ -59,13 +59,13 @@ classDiagram
         +String~20~ status
     }
 
-    User "1" --> "*" OrgMember : memberships
-    User "1" --> "*" EventAttendee : rsvps
-    User "1" --> "*" BudgetRequest : budget_submissions
-    User "1" --> "*" Event : submitted_events
+    %% User "1" --> "*" OrgMember : memberships
+    %% User "1" --> "*" EventAttendee : rsvps
+    %% User "1" --> "*" BudgetRequest : budget_submissions
+    %% User "1" --> "*" Event : submitted_events
 
-    Organization "1" --> "*" OrgMember : members
-    Organization "1" --> "*" Event : events
-    Organization "1" --> "*" BudgetRequest : budgets
+    %% Organization "1" --> "*" OrgMember : members
+    %% Organization "1" --> "*" Event : events
+    %% Organization "1" --> "*" BudgetRequest : budgets
 
-    Event "1" --> "*" EventAttendee : attendees
+    %% Event "1" --> "*" EventAttendee : attendees
