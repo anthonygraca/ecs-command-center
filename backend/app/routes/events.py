@@ -48,6 +48,55 @@ def get_events():
     })
 
 
+@events_bp.post("/api/events/")
+def create_event():
+    data = request.get_json(silent=True) or {}
+
+    title = data.get("title", "").strip()
+    start_time = data.get("start_time")
+    end_time = data.get("end_time")
+    location = data.get("location", "").strip()
+    description = data.get("description", "").strip()
+
+    # basic backend validation as a safety net
+    if not title or len(title) < 5:
+        return jsonify({"error": "Title must be at least 5 characters"}), 400
+    if not start_time or not end_time:
+        return jsonify({"error": "Start and end time are required"}), 400
+    if not location:
+        return jsonify({"error": "Location is required"}), 400
+
+    try:
+        start_dt = datetime.fromisoformat(start_time)
+        end_dt = datetime.fromisoformat(end_time)
+    except ValueError:
+        return jsonify({"error": "Invalid date format"}), 400
+
+    if end_dt <= start_dt:
+        return jsonify({"error": "End time must be after start time"}), 400
+
+    # temporary: hardcoded org_id and user until auth is built
+    new_event = Event(
+        title=title,
+        start_time=start_dt,
+        end_time=end_dt,
+        location=location,
+        description=description,
+        org_id=1,
+        submitted_by_user_id=2,
+        approval_status="Pending",
+    )
+
+    db.session.add(new_event)
+    db.session.commit()
+
+    return jsonify({
+        "id": new_event.id,
+        "title": new_event.title,
+        "approval_status": new_event.approval_status,
+    }), 201
+
+
 @events_bp.patch("/api/events/<int:event_id>/approve")
 def approve_event(event_id):
     event = db.session.get(Event, event_id)
