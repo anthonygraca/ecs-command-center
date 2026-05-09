@@ -1,5 +1,8 @@
 # ecs-command-center
 
+# Github Link
+https://github.com/anthonygraca/ecs-command-center
+
 # Setup and Run Instructions
 ## Setting up the database and running the backend
 - cd backend/
@@ -19,3 +22,4 @@
 
 # Current Routes 
 /orgs, /orgs/:id, and /admin 
+
